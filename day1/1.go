@@ -9,12 +9,10 @@ import (
 	"crypto/sha256"
 	"fmt"
 	"strings"
-	"time"
 )
 
-func findHashWithPrefix(nickname string, prefix string) (int, string, string, time.Duration) {
+func findHashWithPrefix(nickname string, prefix string) (int, string, string) {
 	nonce := 0
-	start := time.Now()
 
 	//无限循环找nonce
 	for {
@@ -24,8 +22,7 @@ func findHashWithPrefix(nickname string, prefix string) (int, string, string, ti
 		hashHex := fmt.Sprintf("%x", hash)
 
 		if strings.HasPrefix(hashHex, prefix) {
-			elapsed := time.Since(start)
-			return nonce, data, hashHex, elapsed
+			return nonce, data, hashHex
 		}
 		nonce++
 	}
@@ -34,8 +31,8 @@ func findHashWithPrefix(nickname string, prefix string) (int, string, string, ti
 
 func main() {
 	nickname := "day0xy"
-	nonce, data, hashHex, elapsed := findHashWithPrefix(nickname, "0000")
-	fmt.Printf("4 zero:\nnonce: %d\ndata: %s\nhashHex: %s\nelapsed: %s\n", nonce, data, hashHex, elapsed)
-	nonce, data, hashHex, elapsed = findHashWithPrefix(nickname, "00000")
-	fmt.Printf("5 zero\n:\nnonce: %d\ndata: %s\nhashHex: %s\nelapsed: %s", nonce, data, hashHex, elapsed)
+	nonce, data, hashHex := findHashWithPrefix(nickname, "0000")
+	fmt.Printf("4 zero:\nnonce: %d\ndata: %s\nhashHex: %s\n\n", nonce, data, hashHex)
+	nonce, data, hashHex = findHashWithPrefix(nickname, "00000")
+	fmt.Printf("5 zero:\nnonce: %d\ndata: %s\nhashHex: %s\n", nonce, data, hashHex)
 }
