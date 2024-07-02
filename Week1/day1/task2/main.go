@@ -6,6 +6,7 @@
 package main
 
 import (
+	"crypto"
 	"crypto/rand"
 	"crypto/rsa"
 	"crypto/sha256"
@@ -19,9 +20,8 @@ import (
 func findHashWithPrefix(nickname string, prefix string) (int, string, string) {
 	nonce := 0
 
-	//无限循环找nonce
+	// 无限循环找nonce
 	for {
-		//fmt.Sprintf可以存储到变量中
 		data := fmt.Sprintf("%s%d", nickname, nonce)
 		hash := sha256.Sum256([]byte(data))
 		hashHex := fmt.Sprintf("%x", hash)
@@ -31,11 +31,10 @@ func findHashWithPrefix(nickname string, prefix string) (int, string, string) {
 		}
 		nonce++
 	}
-
 }
 
-func GenKeyPair(bits int, privateKeyPath, PublicKeyPath string) error {
-	//生成私钥
+func GenKeyPair(bits int, privateKeyPath, publicKeyPath string) error {
+	// 生成私钥
 	privateKey, err := rsa.GenerateKey(rand.Reader, bits)
 	if err != nil {
 		return err
@@ -46,46 +45,44 @@ func GenKeyPair(bits int, privateKeyPath, PublicKeyPath string) error {
 		Bytes: derPrivateStream,
 	}
 	privateFile, err := os.Create(privateKeyPath)
-	defer privateFile.Close()
 	if err != nil {
 		return err
 	}
+	defer privateFile.Close()
+
 	err = pem.Encode(privateFile, &block)
 	if err != nil {
 		return err
 	}
 
-	//生成公钥
+	// 生成公钥
 	publicKey := privateKey.PublicKey
 	derPublicStream, err := x509.MarshalPKIXPublicKey(&publicKey)
 	if err != nil {
 		return err
 	}
 	block = pem.Block{
-		Type:  "RSA PUBLIC KEY",
+		Type:  "PUBLIC KEY",
 		Bytes: derPublicStream,
 	}
 
-	publicFile, err := os.Create(PublicKeyPath)
-	defer publicFile.Close()
-
+	publicFile, err := os.Create(publicKeyPath)
 	if err != nil {
 		return err
 	}
+	defer publicFile.Close()
 
-	//  编码公钥, 写入文件
+	// 编码公钥, 写入文件
 	err = pem.Encode(publicFile, &block)
 	if err != nil {
-		panic(err)
 		return err
 	}
 	return nil
-
 }
 
-func RSAEncrypt(src []byte, filename string) ([]byte, error) {
-	// 根据文件名读出文件内容
-	file, err := os.Open(filename)
+func SignWithPrivateKey(data []byte, privateKeyPath string) ([]byte, error) {
+	// 根据文件名读出私钥
+	file, err := os.Open(privateKeyPath)
 	if err != nil {
 		return nil, err
 	}
@@ -93,53 +90,74 @@ func RSAEncrypt(src []byte, filename string) ([]byte, error) {
 
 	info, _ := file.Stat()
 	buf := make([]byte, info.Size())
-	file.Read(buf)
-
-	// 从数据中找出pem格式的块
-	block, _ := pem.Decode(buf)
-	if block == nil {
-		return nil, err
-	}
-
-	// 解析一个der编码的公钥
-	publicKey, err := x509.ParsePKCS1PublicKey(block.Bytes)
+	_, err = file.Read(buf)
 	if err != nil {
 		return nil, err
 	}
-
-	// 公钥加密
-	result, _ := rsa.EncryptPKCS1v15(rand.Reader, publicKey, src)
-	return result, nil
-
-}
-
-func RSADecrypt(src []byte, filename string) ([]byte, error) {
-	// 根据文件名读出内容
-	file, err := os.Open(filename)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-
-	info, _ := file.Stat()
-	buf := make([]byte, info.Size())
-	file.Read(buf)
 
 	// 从数据中解析出pem块
 	block, _ := pem.Decode(buf)
 	if block == nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to decode PEM block")
 	}
 
 	// 解析出一个der编码的私钥
 	privateKey, err := x509.ParsePKCS1PrivateKey(block.Bytes)
-
-	// 私钥解密
-	result, err := rsa.DecryptPKCS1v15(rand.Reader, privateKey, src)
 	if err != nil {
 		return nil, err
 	}
-	return result, nil
+
+	// 生成哈希
+	hashed := sha256.Sum256(data)
+
+	// 私钥签名
+	signature, err := rsa.SignPKCS1v15(rand.Reader, privateKey, crypto.SHA256, hashed[:])
+	if err != nil {
+		return nil, err
+	}
+	return signature, nil
+}
+
+func VerifyWithPublicKey(data []byte, signature []byte, publicKeyPath string) error {
+	// 根据文件名读出公钥
+	file, err := os.Open(publicKeyPath)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	info, _ := file.Stat()
+	buf := make([]byte, info.Size())
+	_, err = file.Read(buf)
+	if err != nil {
+		return err
+	}
+
+	// 从数据中找出pem格式的块
+	block, _ := pem.Decode(buf)
+	if block == nil {
+		return fmt.Errorf("failed to decode PEM block")
+	}
+
+	// 解析一个der编码的公钥
+	pubInterface, err := x509.ParsePKIXPublicKey(block.Bytes)
+	if err != nil {
+		return err
+	}
+	publicKey, ok := pubInterface.(*rsa.PublicKey)
+	if !ok {
+		return fmt.Errorf("not RSA public key")
+	}
+
+	// 生成哈希
+	hashed := sha256.Sum256(data)
+
+	// 公钥验证签名
+	err = rsa.VerifyPKCS1v15(publicKey, crypto.SHA256, hashed[:], signature)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 // 函数：检查文件是否存在
@@ -153,16 +171,30 @@ func main() {
 	filename1 := "privateKey.pem"
 	filename2 := "publicKey.pem"
 	nonce, _, _ := findHashWithPrefix(nickname, "0000")
-	encryptData := fmt.Sprintf("%s%d", nickname, nonce)
-	fmt.Println(encryptData)
+	signData := fmt.Sprintf("%s%d", nickname, nonce)
+	fmt.Println("Data to sign:", signData)
 
-	if fileExists(filename1) && fileExists(filename2) {
-		GenKeyPair(2048, "privateKey.pem", "publicKey.pem")
+	if !fileExists(filename1) || !fileExists(filename2) {
+		err := GenKeyPair(2048, filename1, filename2)
+		if err != nil {
+			fmt.Println("Error generating key pair:", err)
+			return
+		}
 	}
 
-	cipherText, _ := RSAEncrypt([]byte(encryptData), "./publicKey.pem")
-	fmt.Println(string(cipherText))
-	plainText, _ := RSADecrypt(cipherText, "./privateKey.pem")
-	fmt.Println(string(plainText))
+	// 用私钥签名
+	signature, err := SignWithPrivateKey([]byte(signData), filename1)
+	if err != nil {
+		fmt.Println("Error signing data:", err)
+		return
+	}
+	fmt.Println("Signature:", signature)
 
+	// 用公钥验证签名
+	err = VerifyWithPublicKey([]byte(signData), signature, filename2)
+	if err != nil {
+		fmt.Println("Signature verification failed:", err)
+		return
+	}
+	fmt.Println("Signature verification successful")
 }
