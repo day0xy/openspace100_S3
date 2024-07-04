@@ -42,6 +42,10 @@ contract Bank {
             uint256 allDeposits = address(this).balance;
             (bool success, ) = admin.call{value: allDeposits}("");
             require(success, "Admin failed to withdraw all deposits");
+
+            /*
+                todo: 所有用户的余额归零，清空top3排序数组的数据            
+            */
             emit Withdraw(admin, allDeposits);
         } else {
             require(amount > 0, "Withdraw amount must be greater than zero");
