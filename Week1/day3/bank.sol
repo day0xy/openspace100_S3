@@ -92,7 +92,11 @@ contract Bank {
     }
 
     // 获取当前前3名存款人的信息
-    function getTop3Depositors() external view returns (address[3] memory, uint256[3] memory) {
+    function getTop3Depositors()
+        external
+        view
+        returns (address[3] memory, uint256[3] memory)
+    {
         return (topDepositors, topDeposits);
     }
 }
