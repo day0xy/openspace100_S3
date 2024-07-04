@@ -4,7 +4,6 @@ pragma solidity >=0.8.0;
 contract Bank {
     event Deposit(address indexed user, uint256 amount);
     event Withdraw(address indexed user, uint256 amount);
-    event Received(address indexed Sender, uint256 indexed Value);
 
     address public admin;
     address[] private users;
@@ -19,14 +18,18 @@ contract Bank {
     mapping(address => uint256) private deposits;
 
     receive() external payable {
-        emit Received(msg.sender, msg.value);
+        require(msg.value > 0, "Deposit amount must be greater than zero");
+
+        if (deposits[msg.sender] == 0) {
+            users.push(msg.sender);
+        }
+
+        deposits[msg.sender] += msg.value;
+
+        updateTop3Depositors(msg.sender, deposits[msg.sender]);
+
+        emit Deposit(msg.sender, msg.value);
     }
-
-    // event fallbackCalled(address Sender, uint Value, bytes Data);
-
-    // fallback() external payable {
-    //     emit fallbackCalled(msg.sender, msg.value, msg.data);
-    // }
 
     // 存钱函数
     function deposit() external payable {
