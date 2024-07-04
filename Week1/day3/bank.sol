@@ -4,7 +4,7 @@ pragma solidity >=0.8.0;
 contract Bank {
     event Deposit(address indexed user, uint256 amount);
     event Withdraw(address indexed user, uint256 amount);
-    event Received(address Sender, uint256 Value);
+    event Received(address indexed Sender, uint256 indexed Value);
 
     address public admin;
     address[] private users;
