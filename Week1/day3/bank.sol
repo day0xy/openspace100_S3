@@ -4,6 +4,7 @@ pragma solidity >=0.8.0;
 contract Bank {
     event Deposit(address indexed user, uint256 amount);
     event Withdraw(address indexed user, uint256 amount);
+    event Received(address Sender, uint Value);
 
     address public admin;
     address[] private users;
@@ -16,6 +17,16 @@ contract Bank {
 
     // 映射存款
     mapping(address => uint256) private deposits;
+
+    receive() external payable {
+        emit Received(msg.sender, msg.value);
+    }
+
+    // event fallbackCalled(address Sender, uint Value, bytes Data);
+
+    // fallback() external payable {
+    //     emit fallbackCalled(msg.sender, msg.value, msg.data);
+    // }
 
     // 存钱函数
     function deposit() external payable {
