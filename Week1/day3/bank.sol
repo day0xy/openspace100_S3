@@ -18,21 +18,11 @@ contract Bank {
     mapping(address => uint256) private deposits;
 
     receive() external payable {
-        require(msg.value > 0, "Deposit amount must be greater than zero");
-
-        if (deposits[msg.sender] == 0) {
-            users.push(msg.sender);
-        }
-
-        deposits[msg.sender] += msg.value;
-
-        updateTop3Depositors(msg.sender, deposits[msg.sender]);
-
-        emit Deposit(msg.sender, msg.value);
+        deposit();
     }
 
     // 存钱函数
-    function deposit() external payable {
+    function deposit() public payable {
         require(msg.value > 0, "Deposit amount must be greater than zero");
 
         // 判断是否为第一次存款
