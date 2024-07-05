@@ -4,10 +4,8 @@ pragma solidity >=0.8.0;
 import "./Bank.sol";
 
 contract BigBank is Bank {
-    // 重写两个public变量
-    address public override admin;
-    address[] public override topDepositors;
-
+    // 映射存款
+    mapping(address => uint256) private deposits;
     // 修饰器，权限控制deposit()
     modifier limitedBalance() {
         require(
@@ -25,10 +23,6 @@ contract BigBank is Bank {
 
     constructor() {
         admin = msg.sender;
-    }
-
-    receive() external payable {
-        deposit();
     }
 
     // 存钱函数
