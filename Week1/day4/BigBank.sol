@@ -11,7 +11,7 @@ contract BigBank is Bank {
     // 修饰器，权限控制deposit()
     modifier limitedBalance() {
         require(
-            msg.value >= 0.001 ether,
+            msg.value > 0.001 ether,
             "error! Deposit amount must be at least 0.001 ether"
         );
         _;
@@ -66,4 +66,7 @@ contract BigBank is Bank {
         );
         admin = newAdminAddress;
     }
+
+    //无需重写
+    // function updateTop3Depositors(address depositor) internal {}
 }
