@@ -6,9 +6,7 @@ contract Bank {
     event Withdraw(address indexed user, uint256 amount);
 
     address public admin;
-    address[] private users;
     address[3] public topDepositors;
-    uint256[3] public topDeposits;
 
     constructor() {
         admin = msg.sender;
@@ -25,15 +23,10 @@ contract Bank {
     function deposit() public payable {
         require(msg.value > 0, "Deposit amount must be greater than zero");
 
-        // 判断是否为第一次存款
-        if (deposits[msg.sender] == 0) {
-            users.push(msg.sender);
-        }
-
         deposits[msg.sender] += msg.value;
 
         // 更新排名
-        updateTop3Depositors(msg.sender, deposits[msg.sender]);
+        // updateTop3Depositors(msg.sender, deposits[msg.sender]);
 
         // 触发存钱事件
         emit Deposit(msg.sender, msg.value);
@@ -47,9 +40,6 @@ contract Bank {
             (bool success, ) = admin.call{value: allDeposits}("");
             require(success, "Admin failed to withdraw all deposits");
 
-            /*
-                todo: 所有用户的余额归零，清空top3排序数组的数据            
-            */
             emit Withdraw(admin, allDeposits);
         } else {
             require(amount > 0, "Withdraw amount must be greater than zero");
@@ -62,7 +52,7 @@ contract Bank {
             require(success, "Transfer failed");
 
             // 更新排名
-            updateTop3Depositors(msg.sender, deposits[msg.sender]);
+            // updateTop3Depositors(msg.sender, deposits[msg.sender]);
             emit Withdraw(msg.sender, amount);
         }
     }
@@ -73,34 +63,12 @@ contract Bank {
     }
 
     // 更新存款前三名的内部函数
-    function updateTop3Depositors(address depositor, uint256 amount) internal {
-        if (amount > topDeposits[0]) {
-            topDepositors[2] = topDepositors[1];
-            topDeposits[2] = topDeposits[1];
+    function updateTop3Depositors(address depositor, uint256 amount) internal {}
 
-            topDepositors[1] = topDepositors[0];
-            topDeposits[1] = topDeposits[0];
+    function minOfThree(uint256[3] memory array) {
+        for (uint i = 0; i < array.length; i++) {
+            
 
-            topDepositors[0] = depositor;
-            topDeposits[0] = amount;
-        } else if (amount > topDeposits[1]) {
-            topDepositors[2] = topDepositors[1];
-            topDeposits[2] = topDeposits[1];
-
-            topDepositors[1] = depositor;
-            topDeposits[1] = amount;
-        } else if (amount > topDeposits[2]) {
-            topDepositors[2] = depositor;
-            topDeposits[2] = amount;
         }
-    }
-
-    // 获取当前前3名存款人的信息
-    function getTop3Depositors()
-        external
-        view
-        returns (address[3] memory, uint256[3] memory)
-    {
-        return (topDepositors, topDeposits);
     }
 }
