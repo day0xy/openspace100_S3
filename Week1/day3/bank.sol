@@ -6,7 +6,7 @@ contract Bank {
     event Withdraw(address indexed user, uint256 amount);
 
     address public admin;
-    address[3] public topDepositors;
+    address[] public topDepositors;
 
     constructor() {
         admin = msg.sender;
@@ -26,7 +26,7 @@ contract Bank {
         deposits[msg.sender] += msg.value;
 
         // 更新排名
-        // updateTop3Depositors(msg.sender, deposits[msg.sender]);
+        updateTop3Depositors(msg.sender);
 
         // 触发存钱事件
         emit Deposit(msg.sender, msg.value);
@@ -52,23 +52,44 @@ contract Bank {
             require(success, "Transfer failed");
 
             // 更新排名
-            // updateTop3Depositors(msg.sender, deposits[msg.sender]);
+            updateTop3Depositors(msg.sender);
             emit Withdraw(msg.sender, amount);
         }
     }
 
-    // 用户查询存款
-    function getDeposits(address user) external view returns (uint256) {
-        return deposits[user];
+    // 更新存款前三名
+    function updateTop3Depositors(address depositor) internal {
+        bool exists = false;
+
+        for (uint256 i = 0; i < topDepositors.length; i++) {
+            if (topDepositors[i] == depositor) {
+                exists = true;
+                break;
+            }
+        }
+
+        if (!exists) {
+            topDepositors.push(depositor);
+        }
+
+        // 冒泡排序，按存款金额排序
+        for (uint256 i = 0; i < topDepositors.length - 1; i++) {
+            for (uint256 j = 0; j < topDepositors.length - i - 1; j++) {
+                if (deposits[topDepositors[j]] < deposits[topDepositors[j + 1]]) {
+                    address temp = topDepositors[j];
+                    topDepositors[j] = topDepositors[j + 1];
+                    topDepositors[j + 1] = temp;
+                }
+            }
+        }
+
+        if (topDepositors.length > 3) {
+            topDepositors.pop();
+        }
     }
 
-    // 更新存款前三名的内部函数
-    function updateTop3Depositors(address depositor, uint256 amount) internal {}
-
-    function minOfThree(uint256[3] memory array) {
-        for (uint i = 0; i < array.length; i++) {
-            
-
-        }
+    // 获取某个用户的存款金额
+    function getDeposit(address user) external view returns (uint256) {
+        return deposits[user];
     }
 }
