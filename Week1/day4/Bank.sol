@@ -1,10 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0;
 
-contract Bank {
-    event Deposit(address indexed user, uint256 amount);
-    event Withdraw(address indexed user, uint256 amount);
+import "./IBank.sol";
 
+contract Bank is IBank {
     address public admin;
     address[] public topDepositors;
 
@@ -20,7 +19,7 @@ contract Bank {
     }
 
     // 存钱函数
-    function deposit() public payable {
+    function deposit() public payable virtual {
         require(msg.value > 0, "Deposit amount must be greater than zero");
 
         deposits[msg.sender] += msg.value;
@@ -33,7 +32,7 @@ contract Bank {
     }
 
     // 取钱函数
-    function withdraw(uint256 amount) external {
+    function withdraw(uint256 amount) external virtual {
         if (msg.sender == admin) {
             // 管理员取出所有的钱
             uint256 allDeposits = address(this).balance;
