@@ -75,7 +75,9 @@ contract Bank {
         // 冒泡排序，按存款金额排序
         for (uint256 i = 0; i < topDepositors.length - 1; i++) {
             for (uint256 j = 0; j < topDepositors.length - i - 1; j++) {
-                if (deposits[topDepositors[j]] < deposits[topDepositors[j + 1]]) {
+                if (
+                    deposits[topDepositors[j]] < deposits[topDepositors[j + 1]]
+                ) {
                     address temp = topDepositors[j];
                     topDepositors[j] = topDepositors[j + 1];
                     topDepositors[j + 1] = temp;
