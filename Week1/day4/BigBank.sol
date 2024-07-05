@@ -6,6 +6,7 @@ import "./Bank.sol";
 contract BigBank is Bank {
     // 映射存款
     mapping(address => uint256) private deposits;
+
     // 修饰器，权限控制deposit()
     modifier limitedBalance() {
         require(
