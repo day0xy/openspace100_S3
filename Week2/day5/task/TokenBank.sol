@@ -1,18 +1,41 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.8.0;
+pragma solidity ^0.8.0;
 
-import "./ERC20.sol";
+import "./BaseERC20.sol";
 
 contract TokenBank {
-    
-    mapping(address => uint256) balances;
+    BaseERC20 public token;
 
-    function deposit(uint256 amount) public returns (bool) {
-        balances[msg.sender] += amount;
-        return true;
+    event Deposit(address indexed user, uint256 indexed amout);
+    event Withdraw(address indexed user, uint256 indexed amount);
+
+    // 记录每个地址的存入数量
+    mapping(address => uint256) public deposits;
+
+    // 构造函数，传入BaseERC20的合约地址
+    constructor(address tokenAddress) {
+        token = BaseERC20(tokenAddress);
     }
 
-    function withdraw(address to) public returns (bool) {
-        return true;
+    // 存款函数
+    function deposit(uint256 amount) public {
+        require(token.transferFrom(msg.sender, address(this), amount), "error,transfer failed");
+        deposits[msg.sender] += amount;
+        emit Deposit(msg.sender, amount);
+    }
+
+    // 提款函数
+    function withdraw(uint256 amount) public {
+        require(amount > 0, "require amount > 0");
+        require(deposits[msg.sender] >= amount, "error,insufficient deposits to withdraw");
+
+        deposits[msg.sender] -= amount;
+        require(token.transfer(msg.sender, amount), "error,token failed to transfer");
+        emit Withdraw(msg.sender, amount);
+    }
+
+    // 查看账户的存款余额
+    function balanceOf(address account) public view returns (uint256) {
+        return deposits[account];
     }
 }
