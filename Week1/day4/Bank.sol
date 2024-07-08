@@ -36,7 +36,7 @@ contract Bank is IBank {
         if (msg.sender == admin) {
             // 管理员取出所有的钱
             uint256 allDeposits = address(this).balance;
-            (bool success, ) = admin.call{value: allDeposits}("");
+            (bool success,) = admin.call{value: allDeposits}("");
             require(success, "Admin failed to withdraw all deposits");
 
             emit Withdraw(admin, allDeposits);
@@ -47,7 +47,7 @@ contract Bank is IBank {
             deposits[msg.sender] -= amount;
 
             // 用户取款
-            (bool success, ) = msg.sender.call{value: amount}("");
+            (bool success,) = msg.sender.call{value: amount}("");
             require(success, "Transfer failed");
 
             // 更新排名
@@ -74,9 +74,7 @@ contract Bank is IBank {
         // 冒泡排序，按存款金额排序
         for (uint256 i = 0; i < topDepositors.length - 1; i++) {
             for (uint256 j = 0; j < topDepositors.length - i - 1; j++) {
-                if (
-                    deposits[topDepositors[j]] < deposits[topDepositors[j + 1]]
-                ) {
+                if (deposits[topDepositors[j]] < deposits[topDepositors[j + 1]]) {
                     address temp = topDepositors[j];
                     topDepositors[j] = topDepositors[j + 1];
                     topDepositors[j + 1] = temp;
