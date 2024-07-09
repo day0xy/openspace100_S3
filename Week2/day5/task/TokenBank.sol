@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "./BaseERC20.sol";
+import "./IERC20.sol";
 
 contract TokenBank {
-    BaseERC20 public token;
+    IERC20 public token;
 
     event Deposit(address indexed user, uint256 indexed amout);
     event Withdraw(address indexed user, uint256 indexed amount);
@@ -14,7 +14,7 @@ contract TokenBank {
 
     // 构造函数，传入BaseERC20的合约地址
     constructor(address tokenAddress) {
-        token = BaseERC20(tokenAddress);
+        token = IERC20(tokenAddress);
     }
 
     // 存款函数
