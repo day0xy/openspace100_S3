@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
@@ -16,8 +16,16 @@ contract Market {
 
     mapping(uint256 => Listing) public listings;
 
-    event NFTListed(address indexed seller, uint256 indexed tokenId, uint256 price);
-    event NFTPurchased(address indexed buyer, uint256 indexed tokenId, uint256 price);
+    event NFTListed(
+        address indexed seller,
+        uint256 indexed tokenId,
+        uint256 price
+    );
+    event NFTPurchased(
+        address indexed buyer,
+        uint256 indexed tokenId,
+        uint256 price
+    );
 
     constructor(IERC20 _token, IERC721 _nft) {
         token = _token;
@@ -25,12 +33,24 @@ contract Market {
     }
 
     function list(uint256 tokenId, uint256 price) external {
-        require(nft.ownerOf(tokenId) == msg.sender, "caller is not the owner of the nft");
+        require(
+            nft.ownerOf(tokenId) == msg.sender,
+            "caller is not the owner of the nft"
+        );
         require(price > 0, "Price must be greater than 0");
+        require(
+            nft.getApproved(tokenId) == address(this) ||
+                nft.isApprovedForAll(msg.sender, address(this)),
+            "NFT not approved for transfer"
+        );
 
         nft.transferFrom(msg.sender, address(this), tokenId);
 
-        listings[tokenId] = Listing({seller: msg.sender, price: price, isListed: true});
+        listings[tokenId] = Listing({
+            seller: msg.sender,
+            price: price,
+            isListed: true
+        });
 
         emit NFTListed(msg.sender, tokenId, price);
     }
@@ -38,9 +58,13 @@ contract Market {
     function buyNFT(uint256 tokenId) external {
         Listing memory listing = listings[tokenId];
         require(listing.isListed, "NFT not listed for sale");
-        require(token.transferFrom(msg.sender, listing.seller, listing.price), "Token transfer failed");
+        require(
+            token.transferFrom(msg.sender, listing.seller, listing.price),
+            "Token transfer failed"
+        );
 
-        listing.isListed = false;
+        delete listings[tokenId]; // Remove listing after successful purchase
+
         nft.transferFrom(address(this), msg.sender, tokenId);
 
         emit NFTPurchased(msg.sender, tokenId, listing.price);
