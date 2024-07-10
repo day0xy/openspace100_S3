@@ -67,7 +67,7 @@ contract Market is TokenRecipient {
 
     // 内部的购买处理函数
     function _purchase(uint256 tokenId, address buyer) internal {
-        Listing storage listing = listings[tokenId];
+        Listing memory listing = listings[tokenId];
         require(listing.isListed, "NFT not listed for sale");
 
         listing.isListed = false;
