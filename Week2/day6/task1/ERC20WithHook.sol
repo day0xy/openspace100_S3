@@ -17,6 +17,7 @@ contract MyToken is ERC20 {
     function transferWithCallback(address recipient, uint256 amount) external returns (bool) {
         _transfer(_msgSender(), recipient, amount);
 
+        //判断如果是合约
         if (recipient.code.length > 0) {
             bool rv = TokenRecipient(recipient).tokensReceived(_msgSender(), amount);
             require(rv, "No tokensReceived");
