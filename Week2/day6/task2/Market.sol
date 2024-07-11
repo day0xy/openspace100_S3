@@ -44,13 +44,13 @@ contract Market {
             "NFT not approved for transfer"
         );
 
-        nft.transferFrom(msg.sender, address(this), tokenId);
-
         listings[tokenId] = Listing({
             seller: msg.sender,
             price: price,
             isListed: true
         });
+
+        nft.transferFrom(msg.sender, address(this), tokenId);
 
         emit NFTListed(msg.sender, tokenId, price);
     }
