@@ -1,0 +1,829 @@
+No files changed, compilation skipped
+
+Ran 13 tests for test/MarketTest.sol:MarketTest
+[PASS] testFuzz_list_and_buyNFT(uint256,address) (runs: 257, μ: 193645, ~: 193645)
+Traces:
+  [2168184] MarketTest::setUp()
+    ├─ [457257] → new MockERC20@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1000000000000000000000000000 [1e27])
+    │   └─ ← [Return] 1824 bytes of code
+    ├─ [853587] → new MockERC721@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 4027 bytes of code
+    ├─ [498898] → new Market@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 2269 bytes of code
+    ├─ [25188] MockERC20::transfer(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], 1000)
+    │   ├─ emit Transfer(from: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], value: 1000)
+    │   └─ ← [Return] true
+    ├─ [25188] MockERC20::transfer(insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], 50)
+    │   ├─ emit Transfer(from: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], value: 50)
+    │   └─ ← [Return] true
+    ├─ [67414] MockERC721::mint(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], tokenId: 0)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::startPrank(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   └─ ← [Return] 
+    ├─ [25052] MockERC721::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 0)
+    │   ├─ emit Approval(owner: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], approved: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], tokenId: 0)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return] 
+    ├─ [0] VM::prank(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02])
+    │   └─ ← [Return] 
+    ├─ [24739] MockERC20::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 100)
+    │   ├─ emit Approval(owner: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], spender: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 100)
+    │   └─ ← [Return] true
+    ├─ [0] VM::prank(insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146])
+    │   └─ ← [Return] 
+    ├─ [24739] MockERC20::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 50)
+    │   ├─ emit Approval(owner: insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], spender: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 50)
+    │   └─ ← [Return] true
+    └─ ← [Stop] 
+
+  [197974] MarketTest::testFuzz_list_and_buyNFT(8163498369350415527 [8.163e18], 0x6564B02F7692Fa34057DB1f1a744C9F4c7cc1058)
+    ├─ [0] VM::assume(true) [staticcall]
+    │   └─ ← [Return] 
+    ├─ [0] VM::assume(true) [staticcall]
+    │   └─ ← [Return] 
+    ├─ [0] VM::assume(true) [staticcall]
+    │   └─ ← [Return] 
+    ├─ [0] VM::prank(MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   └─ ← [Return] 
+    ├─ [29988] MockERC20::transfer(0x6564B02F7692Fa34057DB1f1a744C9F4c7cc1058, 10000000000000000000000000 [1e25])
+    │   ├─ emit Transfer(from: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x6564B02F7692Fa34057DB1f1a744C9F4c7cc1058, value: 10000000000000000000000000 [1e25])
+    │   └─ ← [Return] true
+    ├─ [0] VM::prank(0x6564B02F7692Fa34057DB1f1a744C9F4c7cc1058)
+    │   └─ ← [Return] 
+    ├─ [24739] MockERC20::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 10000000000000000000000000 [1e25])
+    │   ├─ emit Approval(owner: 0x6564B02F7692Fa34057DB1f1a744C9F4c7cc1058, spender: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 10000000000000000000000000 [1e25])
+    │   └─ ← [Return] true
+    ├─ [0] VM::prank(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   └─ ← [Return] 
+    ├─ [0] VM::expectEmit(true, true, false, true)
+    │   └─ ← [Return] 
+    ├─ emit NFTListed(seller: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], tokenId: 0, price: 8163498369350415527 [8.163e18])
+    ├─ [97413] Market::list(0, 8163498369350415527 [8.163e18])
+    │   ├─ [2642] MockERC721::ownerOf(0) [staticcall]
+    │   │   └─ ← [Return] seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174]
+    │   ├─ [2822] MockERC721::getApproved(0) [staticcall]
+    │   │   └─ ← [Return] Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]
+    │   ├─ [39255] MockERC721::transferFrom(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 0)
+    │   │   ├─ emit Transfer(from: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], to: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], tokenId: 0)
+    │   │   └─ ← [Stop] 
+    │   ├─ emit NFTListed(seller: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], tokenId: 0, price: 8163498369350415527 [8.163e18])
+    │   └─ ← [Stop] 
+    ├─ [691] Market::listings(0) [staticcall]
+    │   └─ ← [Return] seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], 8163498369350415527 [8.163e18]
+    ├─ [0] VM::assertEq(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174]) [staticcall]
+    │   └─ ← [Return] 
+    ├─ [0] VM::assertEq(8163498369350415527 [8.163e18], 8163498369350415527 [8.163e18]) [staticcall]
+    │   └─ ← [Return] 
+    ├─ [642] MockERC721::ownerOf(0) [staticcall]
+    │   └─ ← [Return] Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]
+    ├─ [0] VM::assertEq(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   └─ ← [Return] 
+    ├─ [0] VM::prank(0x6564B02F7692Fa34057DB1f1a744C9F4c7cc1058)
+    │   └─ ← [Return] 
+    ├─ [0] VM::expectEmit(true, true, false, true)
+    │   └─ ← [Return] 
+    ├─ emit NFTPurchased(buyer: 0x6564B02F7692Fa34057DB1f1a744C9F4c7cc1058, tokenId: 0, price: 8163498369350415527 [8.163e18])
+    ├─ [58521] Market::buyNFT(0)
+    │   ├─ [26062] MockERC20::transferFrom(0x6564B02F7692Fa34057DB1f1a744C9F4c7cc1058, seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], 8163498369350415527 [8.163e18])
+    │   │   ├─ emit Transfer(from: 0x6564B02F7692Fa34057DB1f1a744C9F4c7cc1058, to: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], value: 8163498369350415527 [8.163e18])
+    │   │   └─ ← [Return] true
+    │   ├─ [26337] MockERC721::transferFrom(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 0x6564B02F7692Fa34057DB1f1a744C9F4c7cc1058, 0)
+    │   │   ├─ emit Transfer(from: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], to: 0x6564B02F7692Fa34057DB1f1a744C9F4c7cc1058, tokenId: 0)
+    │   │   └─ ← [Stop] 
+    │   ├─ emit NFTPurchased(buyer: 0x6564B02F7692Fa34057DB1f1a744C9F4c7cc1058, tokenId: 0, price: 8163498369350415527 [8.163e18])
+    │   └─ ← [Stop] 
+    ├─ [642] MockERC721::ownerOf(0) [staticcall]
+    │   └─ ← [Return] 0x6564B02F7692Fa34057DB1f1a744C9F4c7cc1058
+    ├─ [0] VM::assertEq(0x6564B02F7692Fa34057DB1f1a744C9F4c7cc1058, 0x6564B02F7692Fa34057DB1f1a744C9F4c7cc1058) [staticcall]
+    │   └─ ← [Return] 
+    ├─ [562] MockERC20::balanceOf(0x6564B02F7692Fa34057DB1f1a744C9F4c7cc1058) [staticcall]
+    │   └─ ← [Return] 9999991836501630649584473 [9.999e24]
+    ├─ [0] VM::assertEq(9999991836501630649584473 [9.999e24], 9999991836501630649584473 [9.999e24]) [staticcall]
+    │   └─ ← [Return] 
+    ├─ [562] MockERC20::balanceOf(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174]) [staticcall]
+    │   └─ ← [Return] 8163498369350415527 [8.163e18]
+    ├─ [0] VM::assertEq(8163498369350415527 [8.163e18], 8163498369350415527 [8.163e18]) [staticcall]
+    │   └─ ← [Return] 
+    ├─ [691] Market::listings(0) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000, 0
+    ├─ [0] VM::assertEq(0x0000000000000000000000000000000000000000, 0x0000000000000000000000000000000000000000) [staticcall]
+    │   └─ ← [Return] 
+    ├─ [0] VM::assertEq(0, 0) [staticcall]
+    │   └─ ← [Return] 
+    └─ ← [Stop] 
+
+[PASS] testPrice() (gas: 2395)
+Traces:
+  [2168184] MarketTest::setUp()
+    ├─ [457257] → new MockERC20@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1000000000000000000000000000 [1e27])
+    │   └─ ← [Return] 1824 bytes of code
+    ├─ [853587] → new MockERC721@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 4027 bytes of code
+    ├─ [498898] → new Market@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 2269 bytes of code
+    ├─ [25188] MockERC20::transfer(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], 1000)
+    │   ├─ emit Transfer(from: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], value: 1000)
+    │   └─ ← [Return] true
+    ├─ [25188] MockERC20::transfer(insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], 50)
+    │   ├─ emit Transfer(from: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], value: 50)
+    │   └─ ← [Return] true
+    ├─ [67414] MockERC721::mint(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], tokenId: 0)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::startPrank(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   └─ ← [Return] 
+    ├─ [25052] MockERC721::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 0)
+    │   ├─ emit Approval(owner: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], approved: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], tokenId: 0)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return] 
+    ├─ [0] VM::prank(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02])
+    │   └─ ← [Return] 
+    ├─ [24739] MockERC20::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 100)
+    │   ├─ emit Approval(owner: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], spender: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 100)
+    │   └─ ← [Return] true
+    ├─ [0] VM::prank(insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146])
+    │   └─ ← [Return] 
+    ├─ [24739] MockERC20::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 50)
+    │   ├─ emit Approval(owner: insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], spender: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 50)
+    │   └─ ← [Return] true
+    └─ ← [Stop] 
+
+  [2395] MarketTest::testPrice()
+    └─ ← [Return] 100
+
+[PASS] test_buyNFT_buy_duplicate_nft() (gas: 144123)
+Traces:
+  [2168184] MarketTest::setUp()
+    ├─ [457257] → new MockERC20@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1000000000000000000000000000 [1e27])
+    │   └─ ← [Return] 1824 bytes of code
+    ├─ [853587] → new MockERC721@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 4027 bytes of code
+    ├─ [498898] → new Market@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 2269 bytes of code
+    ├─ [25188] MockERC20::transfer(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], 1000)
+    │   ├─ emit Transfer(from: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], value: 1000)
+    │   └─ ← [Return] true
+    ├─ [25188] MockERC20::transfer(insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], 50)
+    │   ├─ emit Transfer(from: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], value: 50)
+    │   └─ ← [Return] true
+    ├─ [67414] MockERC721::mint(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], tokenId: 0)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::startPrank(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   └─ ← [Return] 
+    ├─ [25052] MockERC721::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 0)
+    │   ├─ emit Approval(owner: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], approved: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], tokenId: 0)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return] 
+    ├─ [0] VM::prank(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02])
+    │   └─ ← [Return] 
+    ├─ [24739] MockERC20::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 100)
+    │   ├─ emit Approval(owner: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], spender: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 100)
+    │   └─ ← [Return] true
+    ├─ [0] VM::prank(insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146])
+    │   └─ ← [Return] 
+    ├─ [24739] MockERC20::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 50)
+    │   ├─ emit Approval(owner: insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], spender: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 50)
+    │   └─ ← [Return] true
+    └─ ← [Stop] 
+
+  [148336] MarketTest::test_buyNFT_buy_duplicate_nft()
+    ├─ [0] VM::prank(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   └─ ← [Return] 
+    ├─ [97413] Market::list(0, 100)
+    │   ├─ [2642] MockERC721::ownerOf(0) [staticcall]
+    │   │   └─ ← [Return] seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174]
+    │   ├─ [2822] MockERC721::getApproved(0) [staticcall]
+    │   │   └─ ← [Return] Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]
+    │   ├─ [39255] MockERC721::transferFrom(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 0)
+    │   │   ├─ emit Transfer(from: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], to: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], tokenId: 0)
+    │   │   └─ ← [Stop] 
+    │   ├─ emit NFTListed(seller: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], tokenId: 0, price: 100)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::prank(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02])
+    │   └─ ← [Return] 
+    ├─ [70621] Market::buyNFT(0)
+    │   ├─ [35662] MockERC20::transferFrom(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], 100)
+    │   │   ├─ emit Transfer(from: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], to: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], value: 100)
+    │   │   └─ ← [Return] true
+    │   ├─ [26337] MockERC721::transferFrom(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], 0)
+    │   │   ├─ emit Transfer(from: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], to: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], tokenId: 0)
+    │   │   └─ ← [Stop] 
+    │   ├─ emit NFTPurchased(buyer: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], tokenId: 0, price: 100)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::prank(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02])
+    │   └─ ← [Return] 
+    ├─ [0] VM::expectRevert(custom error f4844814:)
+    │   └─ ← [Return] 
+    ├─ [732] Market::buyNFT(0)
+    │   └─ ← [Revert] revert: NFT not listed for sale
+    └─ ← [Stop] 
+
+[PASS] test_buyNFT_buy_own_nft() (gas: 91473)
+Traces:
+  [2168184] MarketTest::setUp()
+    ├─ [457257] → new MockERC20@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1000000000000000000000000000 [1e27])
+    │   └─ ← [Return] 1824 bytes of code
+    ├─ [853587] → new MockERC721@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 4027 bytes of code
+    ├─ [498898] → new Market@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 2269 bytes of code
+    ├─ [25188] MockERC20::transfer(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], 1000)
+    │   ├─ emit Transfer(from: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], value: 1000)
+    │   └─ ← [Return] true
+    ├─ [25188] MockERC20::transfer(insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], 50)
+    │   ├─ emit Transfer(from: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], value: 50)
+    │   └─ ← [Return] true
+    ├─ [67414] MockERC721::mint(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], tokenId: 0)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::startPrank(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   └─ ← [Return] 
+    ├─ [25052] MockERC721::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 0)
+    │   ├─ emit Approval(owner: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], approved: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], tokenId: 0)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return] 
+    ├─ [0] VM::prank(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02])
+    │   └─ ← [Return] 
+    ├─ [24739] MockERC20::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 100)
+    │   ├─ emit Approval(owner: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], spender: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 100)
+    │   └─ ← [Return] true
+    ├─ [0] VM::prank(insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146])
+    │   └─ ← [Return] 
+    ├─ [24739] MockERC20::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 50)
+    │   ├─ emit Approval(owner: insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], spender: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 50)
+    │   └─ ← [Return] true
+    └─ ← [Stop] 
+
+  [95686] MarketTest::test_buyNFT_buy_own_nft()
+    ├─ [0] VM::prank(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   └─ ← [Return] 
+    ├─ [97413] Market::list(0, 100)
+    │   ├─ [2642] MockERC721::ownerOf(0) [staticcall]
+    │   │   └─ ← [Return] seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174]
+    │   ├─ [2822] MockERC721::getApproved(0) [staticcall]
+    │   │   └─ ← [Return] Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]
+    │   ├─ [39255] MockERC721::transferFrom(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 0)
+    │   │   ├─ emit Transfer(from: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], to: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], tokenId: 0)
+    │   │   └─ ← [Stop] 
+    │   ├─ emit NFTListed(seller: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], tokenId: 0, price: 100)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::expectRevert(custom error f4844814:)
+    │   └─ ← [Return] 
+    ├─ [8980] Market::buyNFT(0)
+    │   ├─ [2959] MockERC20::transferFrom(MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], 100)
+    │   │   └─ ← [Revert] ERC20InsufficientAllowance(0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, 0, 100)
+    │   └─ ← [Revert] ERC20InsufficientAllowance(0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, 0, 100)
+    └─ ← [Stop] 
+
+[PASS] test_buyNFT_insufficient_token() (gas: 93436)
+Traces:
+  [2168184] MarketTest::setUp()
+    ├─ [457257] → new MockERC20@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1000000000000000000000000000 [1e27])
+    │   └─ ← [Return] 1824 bytes of code
+    ├─ [853587] → new MockERC721@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 4027 bytes of code
+    ├─ [498898] → new Market@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 2269 bytes of code
+    ├─ [25188] MockERC20::transfer(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], 1000)
+    │   ├─ emit Transfer(from: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], value: 1000)
+    │   └─ ← [Return] true
+    ├─ [25188] MockERC20::transfer(insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], 50)
+    │   ├─ emit Transfer(from: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], value: 50)
+    │   └─ ← [Return] true
+    ├─ [67414] MockERC721::mint(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], tokenId: 0)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::startPrank(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   └─ ← [Return] 
+    ├─ [25052] MockERC721::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 0)
+    │   ├─ emit Approval(owner: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], approved: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], tokenId: 0)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return] 
+    ├─ [0] VM::prank(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02])
+    │   └─ ← [Return] 
+    ├─ [24739] MockERC20::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 100)
+    │   ├─ emit Approval(owner: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], spender: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 100)
+    │   └─ ← [Return] true
+    ├─ [0] VM::prank(insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146])
+    │   └─ ← [Return] 
+    ├─ [24739] MockERC20::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 50)
+    │   ├─ emit Approval(owner: insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], spender: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 50)
+    │   └─ ← [Return] true
+    └─ ← [Stop] 
+
+  [97648] MarketTest::test_buyNFT_insufficient_token()
+    ├─ [0] VM::prank(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   └─ ← [Return] 
+    ├─ [97413] Market::list(0, 100)
+    │   ├─ [2642] MockERC721::ownerOf(0) [staticcall]
+    │   │   └─ ← [Return] seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174]
+    │   ├─ [2822] MockERC721::getApproved(0) [staticcall]
+    │   │   └─ ← [Return] Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]
+    │   ├─ [39255] MockERC721::transferFrom(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 0)
+    │   │   ├─ emit Transfer(from: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], to: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], tokenId: 0)
+    │   │   └─ ← [Stop] 
+    │   ├─ emit NFTListed(seller: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], tokenId: 0, price: 100)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::prank(insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146])
+    │   └─ ← [Return] 
+    ├─ [0] VM::expectRevert(custom error f4844814:)
+    │   └─ ← [Return] 
+    ├─ [8980] Market::buyNFT(0)
+    │   ├─ [2959] MockERC20::transferFrom(insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], 100)
+    │   │   └─ ← [Revert] ERC20InsufficientAllowance(0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, 50, 100)
+    │   └─ ← [Revert] ERC20InsufficientAllowance(0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, 50, 100)
+    └─ ← [Stop] 
+
+[PASS] test_buyNFT_not_listed() (gas: 15336)
+Traces:
+  [2168184] MarketTest::setUp()
+    ├─ [457257] → new MockERC20@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1000000000000000000000000000 [1e27])
+    │   └─ ← [Return] 1824 bytes of code
+    ├─ [853587] → new MockERC721@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 4027 bytes of code
+    ├─ [498898] → new Market@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 2269 bytes of code
+    ├─ [25188] MockERC20::transfer(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], 1000)
+    │   ├─ emit Transfer(from: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], value: 1000)
+    │   └─ ← [Return] true
+    ├─ [25188] MockERC20::transfer(insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], 50)
+    │   ├─ emit Transfer(from: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], value: 50)
+    │   └─ ← [Return] true
+    ├─ [67414] MockERC721::mint(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], tokenId: 0)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::startPrank(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   └─ ← [Return] 
+    ├─ [25052] MockERC721::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 0)
+    │   ├─ emit Approval(owner: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], approved: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], tokenId: 0)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return] 
+    ├─ [0] VM::prank(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02])
+    │   └─ ← [Return] 
+    ├─ [24739] MockERC20::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 100)
+    │   ├─ emit Approval(owner: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], spender: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 100)
+    │   └─ ← [Return] true
+    ├─ [0] VM::prank(insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146])
+    │   └─ ← [Return] 
+    ├─ [24739] MockERC20::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 50)
+    │   ├─ emit Approval(owner: insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], spender: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 50)
+    │   └─ ← [Return] true
+    └─ ← [Stop] 
+
+  [15336] MarketTest::test_buyNFT_not_listed()
+    ├─ [0] VM::prank(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02])
+    │   └─ ← [Return] 
+    ├─ [0] VM::expectRevert(NFT not listed for sale)
+    │   └─ ← [Return] 
+    ├─ [4732] Market::buyNFT(0)
+    │   └─ ← [Revert] revert: NFT not listed for sale
+    └─ ← [Stop] 
+
+[PASS] test_buyNFT_success() (gas: 153301)
+Traces:
+  [2168184] MarketTest::setUp()
+    ├─ [457257] → new MockERC20@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1000000000000000000000000000 [1e27])
+    │   └─ ← [Return] 1824 bytes of code
+    ├─ [853587] → new MockERC721@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 4027 bytes of code
+    ├─ [498898] → new Market@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 2269 bytes of code
+    ├─ [25188] MockERC20::transfer(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], 1000)
+    │   ├─ emit Transfer(from: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], value: 1000)
+    │   └─ ← [Return] true
+    ├─ [25188] MockERC20::transfer(insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], 50)
+    │   ├─ emit Transfer(from: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], value: 50)
+    │   └─ ← [Return] true
+    ├─ [67414] MockERC721::mint(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], tokenId: 0)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::startPrank(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   └─ ← [Return] 
+    ├─ [25052] MockERC721::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 0)
+    │   ├─ emit Approval(owner: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], approved: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], tokenId: 0)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return] 
+    ├─ [0] VM::prank(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02])
+    │   └─ ← [Return] 
+    ├─ [24739] MockERC20::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 100)
+    │   ├─ emit Approval(owner: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], spender: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 100)
+    │   └─ ← [Return] true
+    ├─ [0] VM::prank(insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146])
+    │   └─ ← [Return] 
+    ├─ [24739] MockERC20::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 50)
+    │   ├─ emit Approval(owner: insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], spender: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 50)
+    │   └─ ← [Return] true
+    └─ ← [Stop] 
+
+  [157514] MarketTest::test_buyNFT_success()
+    ├─ [0] VM::prank(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   └─ ← [Return] 
+    ├─ [97413] Market::list(0, 100)
+    │   ├─ [2642] MockERC721::ownerOf(0) [staticcall]
+    │   │   └─ ← [Return] seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174]
+    │   ├─ [2822] MockERC721::getApproved(0) [staticcall]
+    │   │   └─ ← [Return] Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]
+    │   ├─ [39255] MockERC721::transferFrom(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 0)
+    │   │   ├─ emit Transfer(from: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], to: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], tokenId: 0)
+    │   │   └─ ← [Stop] 
+    │   ├─ emit NFTListed(seller: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], tokenId: 0, price: 100)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::prank(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02])
+    │   └─ ← [Return] 
+    ├─ [0] VM::expectEmit(true, true, false, true)
+    │   └─ ← [Return] 
+    ├─ emit NFTPurchased(buyer: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], tokenId: 0, price: 100)
+    ├─ [70621] Market::buyNFT(0)
+    │   ├─ [35662] MockERC20::transferFrom(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], 100)
+    │   │   ├─ emit Transfer(from: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], to: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], value: 100)
+    │   │   └─ ← [Return] true
+    │   ├─ [26337] MockERC721::transferFrom(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], 0)
+    │   │   ├─ emit Transfer(from: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], to: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], tokenId: 0)
+    │   │   └─ ← [Stop] 
+    │   ├─ emit NFTPurchased(buyer: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], tokenId: 0, price: 100)
+    │   └─ ← [Stop] 
+    ├─ [642] MockERC721::ownerOf(0) [staticcall]
+    │   └─ ← [Return] buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02]
+    ├─ [0] VM::assertEq(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02]) [staticcall]
+    │   └─ ← [Return] 
+    ├─ [562] MockERC20::balanceOf(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02]) [staticcall]
+    │   └─ ← [Return] 900
+    ├─ [0] VM::assertEq(900, 900) [staticcall]
+    │   └─ ← [Return] 
+    ├─ [562] MockERC20::balanceOf(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174]) [staticcall]
+    │   └─ ← [Return] 100
+    ├─ [0] VM::assertEq(100, 100) [staticcall]
+    │   └─ ← [Return] 
+    ├─ [691] Market::listings(0) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000, 0
+    ├─ [0] VM::assertEq(0x0000000000000000000000000000000000000000, 0x0000000000000000000000000000000000000000) [staticcall]
+    │   └─ ← [Return] 
+    ├─ [0] VM::assertEq(0, 0) [staticcall]
+    │   └─ ← [Return] 
+    └─ ← [Stop] 
+
+[PASS] test_list_already_listed() (gas: 103184)
+Traces:
+  [2168184] MarketTest::setUp()
+    ├─ [457257] → new MockERC20@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1000000000000000000000000000 [1e27])
+    │   └─ ← [Return] 1824 bytes of code
+    ├─ [853587] → new MockERC721@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 4027 bytes of code
+    ├─ [498898] → new Market@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 2269 bytes of code
+    ├─ [25188] MockERC20::transfer(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], 1000)
+    │   ├─ emit Transfer(from: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], value: 1000)
+    │   └─ ← [Return] true
+    ├─ [25188] MockERC20::transfer(insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], 50)
+    │   ├─ emit Transfer(from: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], value: 50)
+    │   └─ ← [Return] true
+    ├─ [67414] MockERC721::mint(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], tokenId: 0)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::startPrank(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   └─ ← [Return] 
+    ├─ [25052] MockERC721::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 0)
+    │   ├─ emit Approval(owner: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], approved: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], tokenId: 0)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return] 
+    ├─ [0] VM::prank(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02])
+    │   └─ ← [Return] 
+    ├─ [24739] MockERC20::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 100)
+    │   ├─ emit Approval(owner: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], spender: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 100)
+    │   └─ ← [Return] true
+    ├─ [0] VM::prank(insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146])
+    │   └─ ← [Return] 
+    ├─ [24739] MockERC20::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 50)
+    │   ├─ emit Approval(owner: insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], spender: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 50)
+    │   └─ ← [Return] true
+    └─ ← [Stop] 
+
+  [103184] MarketTest::test_list_already_listed()
+    ├─ [0] VM::prank(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   └─ ← [Return] 
+    ├─ [97413] Market::list(0, 100)
+    │   ├─ [2642] MockERC721::ownerOf(0) [staticcall]
+    │   │   └─ ← [Return] seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174]
+    │   ├─ [2822] MockERC721::getApproved(0) [staticcall]
+    │   │   └─ ← [Return] Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]
+    │   ├─ [39255] MockERC721::transferFrom(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 0)
+    │   │   ├─ emit Transfer(from: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], to: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], tokenId: 0)
+    │   │   └─ ← [Stop] 
+    │   ├─ emit NFTListed(seller: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], tokenId: 0, price: 100)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::prank(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   └─ ← [Return] 
+    ├─ [0] VM::expectRevert(custom error f4844814:)
+    │   └─ ← [Return] 
+    ├─ [1557] Market::list(0, 100)
+    │   ├─ [642] MockERC721::ownerOf(0) [staticcall]
+    │   │   └─ ← [Return] Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]
+    │   └─ ← [Revert] revert: caller is not the owner of the nft
+    └─ ← [Stop] 
+
+[PASS] test_list_is_NFT_Owner() (gas: 106345)
+Traces:
+  [2168184] MarketTest::setUp()
+    ├─ [457257] → new MockERC20@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1000000000000000000000000000 [1e27])
+    │   └─ ← [Return] 1824 bytes of code
+    ├─ [853587] → new MockERC721@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 4027 bytes of code
+    ├─ [498898] → new Market@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 2269 bytes of code
+    ├─ [25188] MockERC20::transfer(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], 1000)
+    │   ├─ emit Transfer(from: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], value: 1000)
+    │   └─ ← [Return] true
+    ├─ [25188] MockERC20::transfer(insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], 50)
+    │   ├─ emit Transfer(from: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], value: 50)
+    │   └─ ← [Return] true
+    ├─ [67414] MockERC721::mint(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], tokenId: 0)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::startPrank(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   └─ ← [Return] 
+    ├─ [25052] MockERC721::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 0)
+    │   ├─ emit Approval(owner: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], approved: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], tokenId: 0)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return] 
+    ├─ [0] VM::prank(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02])
+    │   └─ ← [Return] 
+    ├─ [24739] MockERC20::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 100)
+    │   ├─ emit Approval(owner: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], spender: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 100)
+    │   └─ ← [Return] true
+    ├─ [0] VM::prank(insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146])
+    │   └─ ← [Return] 
+    ├─ [24739] MockERC20::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 50)
+    │   ├─ emit Approval(owner: insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], spender: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 50)
+    │   └─ ← [Return] true
+    └─ ← [Stop] 
+
+  [106345] MarketTest::test_list_is_NFT_Owner()
+    ├─ [0] VM::prank(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   └─ ← [Return] 
+    ├─ [97413] Market::list(0, 100)
+    │   ├─ [2642] MockERC721::ownerOf(0) [staticcall]
+    │   │   └─ ← [Return] seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174]
+    │   ├─ [2822] MockERC721::getApproved(0) [staticcall]
+    │   │   └─ ← [Return] Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]
+    │   ├─ [39255] MockERC721::transferFrom(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 0)
+    │   │   ├─ emit Transfer(from: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], to: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], tokenId: 0)
+    │   │   └─ ← [Stop] 
+    │   ├─ emit NFTListed(seller: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], tokenId: 0, price: 100)
+    │   └─ ← [Stop] 
+    ├─ [691] Market::listings(0) [staticcall]
+    │   └─ ← [Return] seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], 100
+    ├─ [0] VM::assertEq(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174]) [staticcall]
+    │   └─ ← [Return] 
+    ├─ [0] VM::assertEq(100, 100) [staticcall]
+    │   └─ ← [Return] 
+    ├─ [642] MockERC721::ownerOf(0) [staticcall]
+    │   └─ ← [Return] Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]
+    ├─ [0] VM::assertEq(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   └─ ← [Return] 
+    └─ ← [Stop] 
+
+[PASS] test_list_not_NFT_Owner() (gas: 20799)
+Traces:
+  [2168184] MarketTest::setUp()
+    ├─ [457257] → new MockERC20@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1000000000000000000000000000 [1e27])
+    │   └─ ← [Return] 1824 bytes of code
+    ├─ [853587] → new MockERC721@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 4027 bytes of code
+    ├─ [498898] → new Market@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 2269 bytes of code
+    ├─ [25188] MockERC20::transfer(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], 1000)
+    │   ├─ emit Transfer(from: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], value: 1000)
+    │   └─ ← [Return] true
+    ├─ [25188] MockERC20::transfer(insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], 50)
+    │   ├─ emit Transfer(from: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], value: 50)
+    │   └─ ← [Return] true
+    ├─ [67414] MockERC721::mint(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], tokenId: 0)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::startPrank(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   └─ ← [Return] 
+    ├─ [25052] MockERC721::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 0)
+    │   ├─ emit Approval(owner: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], approved: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], tokenId: 0)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return] 
+    ├─ [0] VM::prank(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02])
+    │   └─ ← [Return] 
+    ├─ [24739] MockERC20::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 100)
+    │   ├─ emit Approval(owner: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], spender: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 100)
+    │   └─ ← [Return] true
+    ├─ [0] VM::prank(insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146])
+    │   └─ ← [Return] 
+    ├─ [24739] MockERC20::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 50)
+    │   ├─ emit Approval(owner: insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], spender: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 50)
+    │   └─ ← [Return] true
+    └─ ← [Stop] 
+
+  [20799] MarketTest::test_list_not_NFT_Owner()
+    ├─ [0] VM::prank(notNFTowner: [0x2e769f25e980F04C99cFC23854B426852dc6a728])
+    │   └─ ← [Return] 
+    ├─ [0] VM::expectRevert(caller is not the owner of the nft)
+    │   └─ ← [Return] 
+    ├─ [8057] Market::list(0, 100)
+    │   ├─ [2642] MockERC721::ownerOf(0) [staticcall]
+    │   │   └─ ← [Return] seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174]
+    │   └─ ← [Revert] revert: caller is not the owner of the nft
+    └─ ← [Stop] 
+
+[PASS] test_list_not_approved() (gas: 31608)
+Traces:
+  [2168184] MarketTest::setUp()
+    ├─ [457257] → new MockERC20@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1000000000000000000000000000 [1e27])
+    │   └─ ← [Return] 1824 bytes of code
+    ├─ [853587] → new MockERC721@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 4027 bytes of code
+    ├─ [498898] → new Market@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 2269 bytes of code
+    ├─ [25188] MockERC20::transfer(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], 1000)
+    │   ├─ emit Transfer(from: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], value: 1000)
+    │   └─ ← [Return] true
+    ├─ [25188] MockERC20::transfer(insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], 50)
+    │   ├─ emit Transfer(from: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], value: 50)
+    │   └─ ← [Return] true
+    ├─ [67414] MockERC721::mint(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], tokenId: 0)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::startPrank(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   └─ ← [Return] 
+    ├─ [25052] MockERC721::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 0)
+    │   ├─ emit Approval(owner: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], approved: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], tokenId: 0)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return] 
+    ├─ [0] VM::prank(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02])
+    │   └─ ← [Return] 
+    ├─ [24739] MockERC20::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 100)
+    │   ├─ emit Approval(owner: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], spender: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 100)
+    │   └─ ← [Return] true
+    ├─ [0] VM::prank(insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146])
+    │   └─ ← [Return] 
+    ├─ [24739] MockERC20::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 50)
+    │   ├─ emit Approval(owner: insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], spender: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 50)
+    │   └─ ← [Return] true
+    └─ ← [Stop] 
+
+  [31608] MarketTest::test_list_not_approved()
+    ├─ [0] VM::startPrank(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   └─ ← [Return] 
+    ├─ [9952] MockERC721::approve(0x0000000000000000000000000000000000000000, 0)
+    │   ├─ emit Approval(owner: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], approved: 0x0000000000000000000000000000000000000000, tokenId: 0)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::expectRevert(NFT not approved for transfer)
+    │   └─ ← [Return] 
+    ├─ [8300] Market::list(0, 100)
+    │   ├─ [642] MockERC721::ownerOf(0) [staticcall]
+    │   │   └─ ← [Return] seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174]
+    │   ├─ [822] MockERC721::getApproved(0) [staticcall]
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   ├─ [2827] MockERC721::isApprovedForAll(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   │   └─ ← [Return] false
+    │   └─ ← [Revert] revert: NFT not approved for transfer
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return] 
+    └─ ← [Stop] 
+
+[PASS] test_list_price_is_zero() (gas: 18745)
+Traces:
+  [2168184] MarketTest::setUp()
+    ├─ [457257] → new MockERC20@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1000000000000000000000000000 [1e27])
+    │   └─ ← [Return] 1824 bytes of code
+    ├─ [853587] → new MockERC721@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 4027 bytes of code
+    ├─ [498898] → new Market@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 2269 bytes of code
+    ├─ [25188] MockERC20::transfer(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], 1000)
+    │   ├─ emit Transfer(from: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], value: 1000)
+    │   └─ ← [Return] true
+    ├─ [25188] MockERC20::transfer(insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], 50)
+    │   ├─ emit Transfer(from: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], value: 50)
+    │   └─ ← [Return] true
+    ├─ [67414] MockERC721::mint(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], tokenId: 0)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::startPrank(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   └─ ← [Return] 
+    ├─ [25052] MockERC721::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 0)
+    │   ├─ emit Approval(owner: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], approved: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], tokenId: 0)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return] 
+    ├─ [0] VM::prank(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02])
+    │   └─ ← [Return] 
+    ├─ [24739] MockERC20::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 100)
+    │   ├─ emit Approval(owner: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], spender: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 100)
+    │   └─ ← [Return] true
+    ├─ [0] VM::prank(insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146])
+    │   └─ ← [Return] 
+    ├─ [24739] MockERC20::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 50)
+    │   ├─ emit Approval(owner: insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], spender: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 50)
+    │   └─ ← [Return] true
+    └─ ← [Stop] 
+
+  [18745] MarketTest::test_list_price_is_zero()
+    ├─ [0] VM::prank(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   └─ ← [Return] 
+    ├─ [0] VM::expectRevert(Price must be greater than 0)
+    │   └─ ← [Return] 
+    ├─ [8067] Market::list(0, 0)
+    │   ├─ [2642] MockERC721::ownerOf(0) [staticcall]
+    │   │   └─ ← [Return] seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174]
+    │   └─ ← [Revert] revert: Price must be greater than 0
+    └─ ← [Stop] 
+
+[PASS] test_list_success() (gas: 108757)
+Traces:
+  [2168184] MarketTest::setUp()
+    ├─ [457257] → new MockERC20@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1000000000000000000000000000 [1e27])
+    │   └─ ← [Return] 1824 bytes of code
+    ├─ [853587] → new MockERC721@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 4027 bytes of code
+    ├─ [498898] → new Market@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 2269 bytes of code
+    ├─ [25188] MockERC20::transfer(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], 1000)
+    │   ├─ emit Transfer(from: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], value: 1000)
+    │   └─ ← [Return] true
+    ├─ [25188] MockERC20::transfer(insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], 50)
+    │   ├─ emit Transfer(from: MarketTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], value: 50)
+    │   └─ ← [Return] true
+    ├─ [67414] MockERC721::mint(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], tokenId: 0)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::startPrank(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   └─ ← [Return] 
+    ├─ [25052] MockERC721::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 0)
+    │   ├─ emit Approval(owner: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], approved: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], tokenId: 0)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return] 
+    ├─ [0] VM::prank(buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02])
+    │   └─ ← [Return] 
+    ├─ [24739] MockERC20::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 100)
+    │   ├─ emit Approval(owner: buyer: [0x0fF93eDfa7FB7Ad5E962E4C0EdB9207C03a0fe02], spender: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 100)
+    │   └─ ← [Return] true
+    ├─ [0] VM::prank(insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146])
+    │   └─ ← [Return] 
+    ├─ [24739] MockERC20::approve(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 50)
+    │   ├─ emit Approval(owner: insufficientBuyer: [0x598B53C3885eD0a6Aba24d51A9FC5c504665b146], spender: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 50)
+    │   └─ ← [Return] true
+    └─ ← [Stop] 
+
+  [108757] MarketTest::test_list_success()
+    ├─ [0] VM::prank(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174])
+    │   └─ ← [Return] 
+    ├─ [0] VM::expectEmit(true, true, false, true)
+    │   └─ ← [Return] 
+    ├─ emit NFTListed(seller: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], tokenId: 0, price: 100)
+    ├─ [97413] Market::list(0, 100)
+    │   ├─ [2642] MockERC721::ownerOf(0) [staticcall]
+    │   │   └─ ← [Return] seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174]
+    │   ├─ [2822] MockERC721::getApproved(0) [staticcall]
+    │   │   └─ ← [Return] Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]
+    │   ├─ [39255] MockERC721::transferFrom(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 0)
+    │   │   ├─ emit Transfer(from: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], to: Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], tokenId: 0)
+    │   │   └─ ← [Stop] 
+    │   ├─ emit NFTListed(seller: seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], tokenId: 0, price: 100)
+    │   └─ ← [Stop] 
+    ├─ [691] Market::listings(0) [staticcall]
+    │   └─ ← [Return] seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], 100
+    ├─ [0] VM::assertEq(seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174], seller: [0xDFa97bfe5d2b2E8169b194eAA78Fbb793346B174]) [staticcall]
+    │   └─ ← [Return] 
+    ├─ [0] VM::assertEq(100, 100) [staticcall]
+    │   └─ ← [Return] 
+    ├─ [642] MockERC721::ownerOf(0) [staticcall]
+    │   └─ ← [Return] Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]
+    ├─ [0] VM::assertEq(Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], Market: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   └─ ← [Return] 
+    └─ ← [Stop] 
+
+Suite result: ok. 13 passed; 0 failed; 0 skipped; finished in 93.81ms (94.77ms CPU time)
+
+Ran 1 test suite in 683.72ms (93.81ms CPU time): 13 tests passed, 0 failed, 0 skipped (13 total tests)
