@@ -19,7 +19,10 @@ contract TokenBank {
 
     // 存款函数
     function deposit(uint256 amount) public {
-        require(token.transferFrom(msg.sender, address(this), amount), "error,transfer failed");
+        require(
+            token.transferFrom(msg.sender, address(this), amount),
+            "error,transfer failed"
+        );
         deposits[msg.sender] += amount;
         emit Deposit(msg.sender, amount);
     }
@@ -27,10 +30,16 @@ contract TokenBank {
     // 提款函数
     function withdraw(uint256 amount) public {
         require(amount > 0, "require amount > 0");
-        require(deposits[msg.sender] >= amount, "error,insufficient deposits to withdraw");
+        require(
+            deposits[msg.sender] >= amount,
+            "error,insufficient deposits to withdraw"
+        );
 
         deposits[msg.sender] -= amount;
-        require(token.transfer(msg.sender, amount), "error,token failed to transfer");
+        require(
+            token.transfer(msg.sender, amount),
+            "error,token failed to transfer"
+        );
         emit Withdraw(msg.sender, amount);
     }
 
