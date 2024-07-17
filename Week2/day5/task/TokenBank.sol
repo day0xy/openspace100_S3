@@ -6,7 +6,7 @@ import "./IERC20.sol";
 contract TokenBank {
     IERC20 public token;
 
-    event Deposit(address indexed user, uint256 indexed amout);
+    event Deposit(address indexed user, uint256 indexed amount);
     event Withdraw(address indexed user, uint256 indexed amount);
 
     // 记录每个地址的存入数量
