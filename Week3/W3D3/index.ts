@@ -3,9 +3,9 @@ import { mainnet } from "viem/chains";
 
 const USDC_CONTRACT_ADDRESS = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48";
 
-const TRANSFER_EVENT_ABI = parseAbiItem(
-  "event Transfer(address indexed from, address indexed to, uint256 value)"
-);
+// const TRANSFER_EVENT_ABI = parseAbiItem(
+//   "event Transfer(address indexed from, address indexed to, uint256 value)"
+// );
 
 async function main() {
   try {
@@ -19,7 +19,9 @@ async function main() {
 
     const filter = await client.createEventFilter({
       address: USDC_CONTRACT_ADDRESS,
-      event: TRANSFER_EVENT_ABI,
+      event: parseAbiItem(
+        "event Transfer(address indexed from, address indexed to, uint256 value)"
+      ),
       fromBlock: startBlock,
       toBlock: "latest",
     });
