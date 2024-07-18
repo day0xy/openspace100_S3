@@ -14,18 +14,19 @@ async function main() {
       const latestBlock = await client.getBlock();
 
       if (latestBlock && !processedBlocks.has(latestBlock.hash)) {
-        console.log("Block Height:", latestBlock.number);
-        console.log("Block Hash:", latestBlock.hash);
+        const blockHeight = latestBlock.number;
+        const blockHash = latestBlock.hash;
+
+        console.log(`${blockHeight} (${blockHash})`);
 
         // 记录已处理的区块哈希
-        processedBlocks.add(latestBlock.hash);
+        processedBlocks.add(blockHash);
       }
     } catch (error) {
       console.error("Error fetching latest block:", error);
     }
   }
 
-  // 轮询最新区块，每10秒执行一次
   setInterval(fetchLatestBlock, 1000);
 }
 
