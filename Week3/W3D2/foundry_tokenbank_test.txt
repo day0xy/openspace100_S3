@@ -1,0 +1,53 @@
+BankTest [master●] forge test --mc TokenBankTest -vvvvv
+[⠊] Compiling...
+No files changed, compilation skipped
+
+Ran 1 test for test/TokenBankTest.sol:TokenBankTest
+[PASS] test_permitDeposit() (gas: 107509)
+Traces:
+  [1435629] TokenBankTest::setUp()
+    ├─ [861850] → new PermitToken@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: TokenBankTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1000000000000000000000000 [1e24])
+    │   └─ ← [Return] 3839 bytes of code
+    ├─ [405269] → new TokenBank@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 1802 bytes of code
+    ├─ [0] VM::addr(<pk>) [staticcall]
+    │   └─ ← [Return] user: [0x6CA6d1e2D5347Bfab1d91e883F1915560e09129D]
+    ├─ [0] VM::label(user: [0x6CA6d1e2D5347Bfab1d91e883F1915560e09129D], "user")
+    │   └─ ← [Return] 
+    ├─ [25166] PermitToken::transfer(user: [0x6CA6d1e2D5347Bfab1d91e883F1915560e09129D], 100000000000000000000 [1e20])
+    │   ├─ emit Transfer(from: TokenBankTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: user: [0x6CA6d1e2D5347Bfab1d91e883F1915560e09129D], value: 100000000000000000000 [1e20])
+    │   └─ ← [Return] true
+    ├─ [563] PermitToken::balanceOf(user: [0x6CA6d1e2D5347Bfab1d91e883F1915560e09129D]) [staticcall]
+    │   └─ ← [Return] 100000000000000000000 [1e20]
+    ├─ [0] VM::assertEq(100000000000000000000 [1e20], 100000000000000000000 [1e20]) [staticcall]
+    │   └─ ← [Return] 
+    └─ ← [Stop] 
+
+  [107509] TokenBankTest::test_permitDeposit()
+    ├─ [430] PermitToken::DOMAIN_SEPARATOR() [staticcall]
+    │   └─ ← [Return] 0x9f3acafc801d88216999f1614a40c52a2b28ef081e6ff36d47441df761bc9470
+    ├─ [0] VM::sign("<pk>", 0xb68539315fba7e09f6d7a707e63bfce50365ce51c3efc1e269d1e60530d7ac47) [staticcall]
+    │   └─ ← [Return] 28, 0xa932c229267e169994c2a1a87aa8e9933d8373632ac7c37b2ebcca227edb6c5a, 0x3d51c379fbacae70fe05971f5f5e973842a595801daf2ce45e3bb7fec6432312
+    ├─ [0] VM::prank(user: [0x6CA6d1e2D5347Bfab1d91e883F1915560e09129D])
+    │   └─ ← [Return] 
+    ├─ [111673] TokenBank::permitDeposit(100000000000000000000 [1e20], 86401 [8.64e4], 28, 0xa932c229267e169994c2a1a87aa8e9933d8373632ac7c37b2ebcca227edb6c5a, 0x3d51c379fbacae70fe05971f5f5e973842a595801daf2ce45e3bb7fec6432312)
+    │   ├─ [51484] PermitToken::permit(user: [0x6CA6d1e2D5347Bfab1d91e883F1915560e09129D], TokenBank: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 100000000000000000000 [1e20], 86401 [8.64e4], 28, 0xa932c229267e169994c2a1a87aa8e9933d8373632ac7c37b2ebcca227edb6c5a, 0x3d51c379fbacae70fe05971f5f5e973842a595801daf2ce45e3bb7fec6432312)
+    │   │   ├─ [3000] PRECOMPILES::ecrecover(0xb68539315fba7e09f6d7a707e63bfce50365ce51c3efc1e269d1e60530d7ac47, 28, 76530553812013766367763863600648105044152401571323440320216960478703668391002, 27735547505021891927891344274463639864400541084329143381116148229665844306706) [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000006ca6d1e2d5347bfab1d91e883f1915560e09129d
+    │   │   ├─ emit Approval(owner: user: [0x6CA6d1e2D5347Bfab1d91e883F1915560e09129D], spender: TokenBank: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], value: 100000000000000000000 [1e20])
+    │   │   └─ ← [Stop] 
+    │   ├─ [30866] PermitToken::transferFrom(user: [0x6CA6d1e2D5347Bfab1d91e883F1915560e09129D], TokenBank: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 100000000000000000000 [1e20])
+    │   │   ├─ emit Transfer(from: user: [0x6CA6d1e2D5347Bfab1d91e883F1915560e09129D], to: TokenBank: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], value: 100000000000000000000 [1e20])
+    │   │   └─ ← [Return] true
+    │   ├─ emit Deposit(user: user: [0x6CA6d1e2D5347Bfab1d91e883F1915560e09129D], amount: 100000000000000000000 [1e20])
+    │   └─ ← [Stop] 
+    ├─ [514] TokenBank::balanceOf(user: [0x6CA6d1e2D5347Bfab1d91e883F1915560e09129D]) [staticcall]
+    │   └─ ← [Return] 100000000000000000000 [1e20]
+    ├─ [0] VM::assertEq(100000000000000000000 [1e20], 100000000000000000000 [1e20]) [staticcall]
+    │   └─ ← [Return] 
+    └─ ← [Stop] 
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 1.24ms (471.95µs CPU time)
+
+Ran 1 test suite in 840.11ms (1.24ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
