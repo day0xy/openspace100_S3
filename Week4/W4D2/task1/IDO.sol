@@ -8,13 +8,20 @@ contract TestTokenIDO {
     address public owner;
     bool public isPresaleActive = false;
 
+    //预售价格
     uint256 constant PRESALE_PRICE = 0.001 ether;
+    //募集资金的期望值
     uint256 constant RAISE_LIMIT = 100 ether;
+    //募集资金的最大值
     uint256 constant RAISE_CAP = 200 ether;
+    //最小购买金额
     uint256 constant MIN_BUY = 0.01 ether;
+    //最大购买金额
     uint256 constant MAX_BUY = 0.1 ether;
+    //预售时间
     uint256 constant START_TIME = 1632960000;
     uint256 constant END_TIME = 1632960000 + 7 days;
+    //募集的总金额
     uint256 public totalRaised = 0;
 
     mapping(address => uint256) public funded;
@@ -55,13 +62,16 @@ contract TestTokenIDO {
     function presale() external payable onlyPresaleActive {
         require(msg.value >= MIN_BUY, "below min buy");
         require(msg.value <= MAX_BUY, "above max buy");
+        //防止不超过cap金额
         require(totalRaised + msg.value <= RAISE_CAP, "exceeds raise cap");
         require(block.timestamp >= START_TIME, "presale not started");
         require(block.timestamp <= END_TIME, "presale ended");
 
+        //用户放入ETH的金额
         funded[msg.sender] += msg.value;
         totalRaised += msg.value;
 
+        //计算token数量,发给用户
         token.transfer(msg.sender, msg.value / PRESALE_PRICE);
         emit Presale(msg.sender, msg.value);
     }
@@ -71,6 +81,7 @@ contract TestTokenIDO {
         uint256 amount = funded[msg.sender];
         require(amount > 0, "no tokens to claim");
 
+        //防止重入
         funded[msg.sender] = 0;
         uint256 tokens = amount / PRESALE_PRICE;
 
