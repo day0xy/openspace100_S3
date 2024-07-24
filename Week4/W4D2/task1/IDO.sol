@@ -71,6 +71,7 @@ contract TestTokenIDO {
         //用户放入ETH的金额
         funded[msg.sender] += msg.value;
         totalRaised += msg.value;
+        token.transfer(msg.sender, msg.value / PRESALE_PRICE);
 
         emit Presale(msg.sender, msg.value);
     }
