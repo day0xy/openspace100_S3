@@ -72,12 +72,10 @@ contract TestTokenIDO {
         funded[msg.sender] += msg.value;
         totalRaised += msg.value;
 
-        //计算token数量,发给用户
-        token.transfer(msg.sender, msg.value / PRESALE_PRICE);
         emit Presale(msg.sender, msg.value);
     }
 
-    //预售结束了，达到项目募集资金的预期了，那么用户可以领取token
+    //预售结束了，如果达到项目募集资金预期，那么用户可以领取token
     function claimTokens() external whenPresaleEnded {
         require(totalRaised >= RAISE_LIMIT, "raise limit not met");
         uint256 amount = funded[msg.sender];
@@ -87,6 +85,7 @@ contract TestTokenIDO {
         funded[msg.sender] = 0;
         uint256 tokens = amount / PRESALE_PRICE;
 
+        //token发送给用户
         token.transfer(msg.sender, tokens);
         emit TokensClaimed(msg.sender, tokens);
     }
