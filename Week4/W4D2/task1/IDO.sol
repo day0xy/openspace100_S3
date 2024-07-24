@@ -7,6 +7,8 @@ contract TestTokenIDO {
     IERC20 public token;
     address public owner;
     bool public isPresaleActive = false;
+    //项目方这次预售的tokem总量
+    uint256 public totalPresaleAmount;
 
     //预售价格
     uint256 constant PRESALE_PRICE = 0.001 ether;
@@ -32,10 +34,16 @@ contract TestTokenIDO {
     event TokensClaimed(address indexed user, uint256 tokens);
     event RefundClaimed(address indexed user, uint256 amount);
 
-    constructor(address _token) {
+    constructor(address _token, uint256 _totalPresaleAmount) {
         owner = msg.sender;
         token = IERC20(_token);
         require(token.totalSupply() > 0, "invalid token");
+        require(_totalPresaleAmount > 0, "invalid total presale amount");
+        require(
+            _totalPresaleAmount <= token.totalSupply(),
+            "total presale amount exceeds total supply"
+        );
+        totalPresaleAmount = _totalPresaleAmount;
     }
 
     modifier onlyOwner() {
@@ -68,7 +76,7 @@ contract TestTokenIDO {
         require(block.timestamp >= START_TIME, "presale not started");
         require(block.timestamp <= END_TIME, "presale ended");
 
-        //用户放入ETH的金额
+        //统计用户转入ETH的金额
         funded[msg.sender] += msg.value;
         totalRaised += msg.value;
         token.transfer(msg.sender, msg.value / PRESALE_PRICE);
@@ -76,15 +84,16 @@ contract TestTokenIDO {
         emit Presale(msg.sender, msg.value);
     }
 
-    //预售结束了，如果达到项目募集资金预期，那么用户可以领取token
+    //预售结束后，如果达到项目募集资金预期，那么用户可以领取token
     function claimTokens() external whenPresaleEnded {
         require(totalRaised >= RAISE_LIMIT, "raise limit not met");
         uint256 amount = funded[msg.sender];
         require(amount > 0, "no tokens to claim");
 
-        //防止重入
         funded[msg.sender] = 0;
-        uint256 tokens = amount / PRESALE_PRICE;
+        //token数量=总预售token数量*用户投入的eth/总募集的eth
+        uint256 tokens = totalPresaleAmount *
+            (funded[msg.sender] / totalRaised);
 
         //token发送给用户
         token.transfer(msg.sender, tokens);
@@ -102,6 +111,7 @@ contract TestTokenIDO {
         claimedRefund[msg.sender] = true;
         funded[msg.sender] = 0;
 
+        //退钱给用户
         payable(msg.sender).transfer(amount);
         emit RefundClaimed(msg.sender, amount);
     }
