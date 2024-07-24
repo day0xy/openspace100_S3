@@ -59,6 +59,7 @@ contract TestTokenIDO {
         emit PresaleStarted();
     }
 
+    //预售，用户转入eth,换取token
     function presale() external payable onlyPresaleActive {
         require(msg.value >= MIN_BUY, "below min buy");
         require(msg.value <= MAX_BUY, "above max buy");
@@ -76,6 +77,7 @@ contract TestTokenIDO {
         emit Presale(msg.sender, msg.value);
     }
 
+    //预售结束了，达到项目募集资金的预期了，那么用户可以领取token
     function claimTokens() external whenPresaleEnded {
         require(totalRaised >= RAISE_LIMIT, "raise limit not met");
         uint256 amount = funded[msg.sender];
@@ -89,6 +91,7 @@ contract TestTokenIDO {
         emit TokensClaimed(msg.sender, tokens);
     }
 
+    //预售结束后，如果募集资金没有达到RAISE_LIMIT，用户可以申请退钱
     function claimRefund() external whenPresaleEnded {
         require(totalRaised < RAISE_LIMIT, "raise limit met");
         require(!claimedRefund[msg.sender], "refund already claimed");
@@ -103,6 +106,7 @@ contract TestTokenIDO {
         emit RefundClaimed(msg.sender, amount);
     }
 
+    //预售结束后，募集资金达到值RAISE_LIMIT后.项目方可以提钱出来
     function withdrawFunds() external onlyOwner whenPresaleEnded {
         require(totalRaised >= RAISE_LIMIT, "raise limit not met");
         payable(owner).transfer(address(this).balance);
