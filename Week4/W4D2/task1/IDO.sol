@@ -7,7 +7,7 @@ contract TestTokenIDO {
     IERC20 public token;
     address public owner;
     bool public isPresaleActive = false;
-    //项目方这次预售的tokem总量
+    //项目方这次预售的token总量
     uint256 public totalPresaleAmount;
 
     //预售价格
