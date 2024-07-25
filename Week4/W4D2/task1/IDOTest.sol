@@ -120,7 +120,7 @@ contract TestTokenIDOTest is Test {
         vm.prank(owner);
         ido.withdrawFunds();
 
-        // assert(address(owner).balance == 100 ether);
+        assertEq(address(owner).balance, 100 ether);
     }
 
     //项目方这次预售的tokem总量
