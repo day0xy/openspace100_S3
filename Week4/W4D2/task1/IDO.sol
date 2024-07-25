@@ -21,8 +21,8 @@ contract TestTokenIDO {
     //最大购买金额
     uint256 constant MAX_BUY = 0.1 ether;
     //预售时间
-    uint256 constant START_TIME = 1632960000;
-    uint256 constant END_TIME = 1632960000 + 7 days;
+    uint256 public startTime;
+    uint256 public endTime;
     //募集的总金额
     uint256 public totalRaised = 0;
 
@@ -34,8 +34,14 @@ contract TestTokenIDO {
     event TokensClaimed(address indexed user, uint256 tokens);
     event RefundClaimed(address indexed user, uint256 amount);
 
-    constructor(address _token, uint256 _totalPresaleAmount) {
-        owner = msg.sender;
+    constructor(
+        address _token,
+        uint256 _totalPresaleAmount,
+        uint256 _startTime,
+        uint256 _endTime,
+        address _owner
+    ) {
+        owner = _owner;
         token = IERC20(_token);
         require(token.totalSupply() > 0, "invalid token");
         require(_totalPresaleAmount > 0, "invalid total presale amount");
@@ -44,6 +50,8 @@ contract TestTokenIDO {
             "total presale amount exceeds total supply"
         );
         totalPresaleAmount = _totalPresaleAmount;
+        startTime = _startTime;
+        endTime = _endTime;
     }
 
     modifier onlyOwner() {
@@ -57,7 +65,7 @@ contract TestTokenIDO {
     }
 
     modifier whenPresaleEnded() {
-        require(block.timestamp > END_TIME, "presale not ended");
+        require(block.timestamp > endTime, "presale not ended");
         _;
     }
 
@@ -73,8 +81,8 @@ contract TestTokenIDO {
         require(msg.value <= MAX_BUY, "above max buy");
         //防止不超过cap金额
         require(totalRaised + msg.value <= RAISE_CAP, "exceeds raise cap");
-        require(block.timestamp >= START_TIME, "presale not started");
-        require(block.timestamp <= END_TIME, "presale ended");
+        require(block.timestamp >= startTime, "presale not started");
+        require(block.timestamp <= endTime, "presale ended");
 
         //统计用户转入ETH的金额
         funded[msg.sender] += msg.value;
@@ -91,6 +99,7 @@ contract TestTokenIDO {
         require(amount > 0, "no tokens to claim");
 
         funded[msg.sender] = 0;
+        //按比例发token
         //token数量=总预售token数量*用户投入的eth/总募集的eth
         uint256 tokens = totalPresaleAmount *
             (funded[msg.sender] / totalRaised);
@@ -120,5 +129,9 @@ contract TestTokenIDO {
     function withdrawFunds() external onlyOwner whenPresaleEnded {
         require(totalRaised >= RAISE_LIMIT, "raise limit not met");
         payable(owner).transfer(address(this).balance);
+    }
+
+    function totalRaised_() external view returns (uint256) {
+        return totalRaised;
     }
 }
