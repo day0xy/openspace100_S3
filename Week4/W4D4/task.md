@@ -10,3 +10,5 @@
 • 第⼆版本，deployInscription 加入一个价格参数 price, deployInscription(string symbol, uint totalSupply, uint perMint, uint price) , price 表示发行每个 token 需要支付的费用，并且 第⼆版本使用最小代理的方式以更节约 gas 的方式来创建 ERC20 token，需要同时修改 mintInscription 的实现以便收取每次发行的费用。
 
 需要部署到测试⽹，并开源到区块链浏览器，在你的 Github 的 Readme.md 中备注代理合约及两个实现的合约地址。
+
+tproxy or UUPS proxy contract-> upgradable factory(V1: normal,V2: minimal proxy) -> deploy ERC20 token
